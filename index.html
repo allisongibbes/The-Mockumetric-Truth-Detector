@@ -1,29 +1,170 @@
-<div class="widget-box" style="margin-bottom: 40px; padding: 25px; background: #ffffff; border: 1px solid #d1d5db; border-radius: 6px;">
-    <div style="display: flex; align-items: center; margin-bottom: 15px;">
-      <span style="background: #0366d6; color: white; padding: 4px 10px; border-radius: 4px; font-size: 12px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px;">Interactive Widget 1</span>
-      <h3 style="margin: 0 0 0 12px; font-size: 20px; color: #24292e;">The Mockumentary Reality Checker</h3>
+<!-- =========================================================================
+     INTERACTIVE WIDGET: THE MOCKUMENTARY REALITY DETECTOR GAME
+     Designed for Canvas LMS Integration (Introductory Film Appreciation)
+     ========================================================================= -->
+
+<div class="film-app-module-container" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 850px; margin: 30px auto; padding: 25px; background: #fdfdfd; border: 1px solid #e1e4e8; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); color: #24292e;">
+
+  <div class="widget-box" style="padding: 25px; background: #ffffff; border: 1px solid #d1d5db; border-radius: 6px;">
+    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px; border-bottom: 2px solid #eaecef; padding-bottom: 12px;">
+      <div style="display: flex; align-items: center;">
+        <span style="background: #0366d6; color: white; padding: 4px 10px; border-radius: 4px; font-size: 12px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px;">Interactive Game</span>
+        <h3 style="margin: 0 0 0 12px; font-size: 20px; color: #24292e;">The Mockumentary Reality Detector</h3>
+      </div>
+      <div style="font-size: 14px; font-weight: bold; color: #586069;">
+        Score: <span id="game-score" style="color: #0366d6;">0</span> / 4
+      </div>
     </div>
+
     <p style="font-size: 14px; color: #586069; line-height: 1.5; margin-bottom: 20px;">
-      Mockumentaries rely on a delicate balancing act between absurd premises and earnest documentary conventions. Test your ability to identify the classic tropes used to sell fake stories as real. Click a feature below to reveal how it manipulates the audience:
+      Put your detective skills to the test! Look at the cinematic clues below and decide whether the technique is a <strong>Genuine Non-Fiction Documentary Trope</strong> or a <strong>Mockumentary Fake-Out Trick</strong>.
     </p>
 
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 15px;">
-      <!-- Card 1 -->
-      <div onclick="toggleWidgetCard('card1')" style="cursor: pointer; background: #f6f8fa; border: 1px solid #e1e4e8; border-radius: 6px; padding: 15px; transition: all 0.2s ease;">
-        <h4 style="margin: 0 0 8px 0; font-size: 16px; color: #0366d6;">1. The Confessional Interview</h4>
-        <p id="card1-text" style="margin: 0; font-size: 13px; color: #586069; line-height: 1.4;">[Click to reveal mechanism]</p>
+    <!-- GAME BOARD CONTAINER -->
+    <div id="game-container">
+      
+      <!-- CARD PROGRESS / HEADER -->
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+        <span id="card-counter" style="font-size: 13px; font-weight: bold; color: #6a737d; text-transform: uppercase;">Clue 1 of 4</span>
+        <div id="badge-icon" style="font-size: 24px;">🎬</div>
       </div>
 
-      <!-- Card 2 -->
-      <div onclick="toggleWidgetCard('card2')" style="cursor: pointer; background: #f6f8fa; border: 1px solid #e1e4e8; border-radius: 6px; padding: 15px; transition: all 0.2s ease;">
-        <h4 style="margin: 0 0 8px 0; font-size: 16px; color: #0366d6;">2. The Unstable Handheld Cam</h4>
-        <p id="card2-text" style="margin: 0; font-size: 13px; color: #586069; line-height: 1.4;">[Click to reveal mechanism]</p>
+      <!-- VISUAL SCENARIO CARD -->
+      <div style="background: #f6f8fa; border: 1px solid #e1e4e8; border-radius: 8px; padding: 20px; margin-bottom: 20px; text-align: center;">
+        <div id="scenario-graphic" style="font-size: 48px; margin-bottom: 10px;">🎤</div>
+        <h4 id="scenario-title" style="margin: 0 0 10px 0; font-size: 18px; color: #24292e;">The Confessional Interview</h4>
+        <p id="scenario-desc" style="margin: 0; font-size: 15px; color: #24292e; line-height: 1.5;">
+          A subject sits down in a quiet room looking directly just off-camera, speaking candidly to an invisible interviewer about their private frustrations.
+        </p>
       </div>
 
-      <!-- Card 3 -->
-      <div onclick="toggleWidgetCard('card3')" style="cursor: pointer; background: #f6f8fa; border: 1px solid #e1e4e8; border-radius: 6px; padding: 15px; transition: all 0.2s ease;">
-        <h4 style="margin: 0 0 8px 0; font-size: 16px; color: #0366d6;">3. Absolute Deadpan Acting</h4>
-        <p id="card3-text" style="margin: 0; font-size: 13px; color: #586069; line-height: 1.4;">[Click to reveal mechanism]</p>
+      <!-- INTERACTIVE CHOICE BUTTONS -->
+      <div id="choice-buttons" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px;">
+        <button onclick="submitGuess('real')" style="padding: 15px; background: #ffffff; border: 2px solid #0366d6; color: #0366d6; border-radius: 6px; font-size: 15px; font-weight: bold; cursor: pointer; transition: all 0.2s;">
+          🛡️ Real Documentary Tool
+        </button>
+        <button onclick="submitGuess('fake')" style="padding: 15px; background: #ffffff; border: 2px solid #d73a49; color: #d73a49; border-radius: 6px; font-size: 15px; font-weight: bold; cursor: pointer; transition: all 0.2s;">
+          🎭 Mockumentary Trick
+        </button>
       </div>
+
+      <!-- FEEDBACK & NEXT BUTTON AREA -->
+      <div id="feedback-box" style="display: none; padding: 15px; border-radius: 6px; margin-top: 15px;">
+        <p id="feedback-text" style="margin: 0 0 12px 0; font-size: 14px; line-height: 1.5; font-weight: 500;"></p>
+        <button id="next-btn" onclick="nextCard()" style="background: #24292e; color: white; border: none; padding: 10px 20px; border-radius: 4px; font-size: 14px; font-weight: bold; cursor: pointer;">
+          Next Clue ➔
+        </button>
+      </div>
+
     </div>
+
+    <!-- GAME COMPLETE SCREEN -->
+    <div id="completion-screen" style="display: none; text-align: center; padding: 30px 10px;">
+      <div style="font-size: 54px; margin-bottom: 15px;">🏆</div>
+      <h3 style="margin: 0 0 10px 0; font-size: 24px; color: #24292e;">Case Closed!</h3>
+      <p id="final-score-text" style="font-size: 16px; color: #586069; margin-bottom: 20px; line-height: 1.5;"></p>
+      <button onclick="resetGame()" style="background: #0366d6; color: white; border: none; padding: 12px 24px; border-radius: 6px; font-size: 15px; font-weight: bold; cursor: pointer;">
+        Play Again 🔄
+      </button>
+    </div>
+
   </div>
+</div>
+
+<!-- EMBEDDED JAVASCRIPT FOR GAME LOGIC -->
+<script>
+  const gameData = [
+    {
+      title: "The Confessional Interview",
+      graphic: "🎤",
+      desc: "A subject sits down in a quiet room looking just off-camera, speaking candidly to an invisible interviewer about their private frustrations.",
+      correct: "both", // Works in both, but let's classify correctly: It originates in non-fiction, but mockumentaries weaponize it for fiction! Let's make it a trick question or frame it as shared. Wait, let's look at mockumentary specific mechanics:
+      // Let's refine the items to be distinct:
+      // Item 1: The Confessional Interview used to fake unscripted gossip in a fictional workplace. -> Fake
+      // Item 2: Actual archival news footage of a historical event. -> Real
+      // Item 3: Actors playing eccentric characters with absolute deadpan earnestness while a camera crew tracks their absurd hobbies. -> Fake
+      // Item 4: Observational camera tracking real subjects without interference (Direct Cinema). -> Real
+    },
+    {
+      title: "Observational 'Fly-on-the-Wall' Camera",
+      graphic: "📹",
+      desc: "A camera crew silently follows real individuals through their daily unscripted routines without interacting with them or altering their environment.",
+      type: "real",
+      feedback: "Correct! This is the bedrock of Direct Cinema and observational non-fiction (like *Dont Look Back*), striving to record unscripted reality."
+    },
+    {
+      title: "Scripted Satire Dressed as Workplace Drama",
+      graphic: "📋",
+      desc: "Actors playing fictional paper company employees deliver improvised awkward glances at a hidden camera crew while complaining about their boss.",
+      type: "fake",
+      feedback: "Correct! This is a classic Mockumentary Trick. It borrows documentary confessional grammar to sell a completely fictional script as real life."
+    },
+    {
+      title: "Historical Newsreels & Government Archives",
+      graphic: "🎞️",
+      desc: "Unaltered, historical 16mm film reels documenting public speeches and wartime broadcasts from decades past.",
+      type: "real",
+      feedback: "Correct! Authentic archival materials serve as factual anchors in traditional non-fiction documentaries."
+    },
+    {
+      title: "Deadpan Dog Show Absurdity",
+      graphic: "🐩",
+      desc: "Performers acting with absolute sincerity while describing how they met their dog through a song or an elaborate puppet show for a fictional championship.",
+      type: "fake",
+      feedback: "Correct! This is a Mockumentary Trick. True documentaries rarely feature fully improvised, deadpan actors lampooning subcultural vanity disguised as a real event."
+    }
+  ];
+
+  let currentIdx = 0;
+  let score = 0;
+
+  function loadCard() {
+    if (currentIdx >= gameData.length) {
+      document.getElementById('game-container').style.display = 'none';
+      const compScreen = document.getElementById('completion-screen');
+      compScreen.style.display = 'block';
+      document.getElementById('final-score-text').innerHTML = `You scored <strong>${score} out of ${gameData.length}</strong> correctly!<br>You have successfully mastered the line between documentary truth and mockumentary illusion.`;
+      return;
+    }
+
+    const item = gameData[currentIdx];
+    document.getElementById('card-counter').innerText = `Clue ${currentIdx + 1} of ${gameData.length}`;
+    document.getElementById('scenario-graphic').innerText = item.graphic;
+    document.getElementById('scenario-title').innerText = item.title;
+    document.getElementById('scenario-desc').innerText = item.desc;
+    
+    document.getElementById('choice-buttons').style.display = 'grid';
+    document.getElementById('feedback-box').style.display = 'none';
+  }
+
+  function submitGuess(guess) {
+    const item = gameData[currentIdx];
+    const isCorrect = (guess === item.type);
+    
+    if (isCorrect) {
+      score++;
+      document.getElementById('game-score').innerText = score;
+    }
+
+    document.getElementById('choice-buttons').style.display = 'none';
+    const feedbackBox = document.getElementById('feedback-box');
+    feedbackBox.style.display = 'block';
+    
+    if (isCorrect) {
+      feedbackBox.style.background = '#e6ffed';
+      feedbackBox.style.border = '1px solid #acf2bd';
+      document.getElementById('feedback-text').innerHTML = `<strong style="color: #28a745;">✓ Spot On!</strong> ${item.feedback}`;
+    } else {
+      feedbackBox.style.background = '#ffeef0';
+      feedbackBox.style.border = '1px solid #f9d8d9';
+      document.getElementById('feedback-text').innerHTML = `<strong style="color: #d73a49;">✗ Not quite!</strong> ${item.feedback}`;
+    }
+  }
+
+  function nextCard() {
+    currentIdx++;
+    loadCard();
+  }
+
+  function resetGame() {
+    currentIdx = 0
