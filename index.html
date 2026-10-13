@@ -1,0 +1,29 @@
+<div class="widget-box" style="margin-bottom: 40px; padding: 25px; background: #ffffff; border: 1px solid #d1d5db; border-radius: 6px;">
+    <div style="display: flex; align-items: center; margin-bottom: 15px;">
+      <span style="background: #0366d6; color: white; padding: 4px 10px; border-radius: 4px; font-size: 12px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px;">Interactive Widget 1</span>
+      <h3 style="margin: 0 0 0 12px; font-size: 20px; color: #24292e;">The Mockumentary Reality Checker</h3>
+    </div>
+    <p style="font-size: 14px; color: #586069; line-height: 1.5; margin-bottom: 20px;">
+      Mockumentaries rely on a delicate balancing act between absurd premises and earnest documentary conventions. Test your ability to identify the classic tropes used to sell fake stories as real. Click a feature below to reveal how it manipulates the audience:
+    </p>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 15px;">
+      <!-- Card 1 -->
+      <div onclick="toggleWidgetCard('card1')" style="cursor: pointer; background: #f6f8fa; border: 1px solid #e1e4e8; border-radius: 6px; padding: 15px; transition: all 0.2s ease;">
+        <h4 style="margin: 0 0 8px 0; font-size: 16px; color: #0366d6;">1. The Confessional Interview</h4>
+        <p id="card1-text" style="margin: 0; font-size: 13px; color: #586069; line-height: 1.4;">[Click to reveal mechanism]</p>
+      </div>
+
+      <!-- Card 2 -->
+      <div onclick="toggleWidgetCard('card2')" style="cursor: pointer; background: #f6f8fa; border: 1px solid #e1e4e8; border-radius: 6px; padding: 15px; transition: all 0.2s ease;">
+        <h4 style="margin: 0 0 8px 0; font-size: 16px; color: #0366d6;">2. The Unstable Handheld Cam</h4>
+        <p id="card2-text" style="margin: 0; font-size: 13px; color: #586069; line-height: 1.4;">[Click to reveal mechanism]</p>
+      </div>
+
+      <!-- Card 3 -->
+      <div onclick="toggleWidgetCard('card3')" style="cursor: pointer; background: #f6f8fa; border: 1px solid #e1e4e8; border-radius: 6px; padding: 15px; transition: all 0.2s ease;">
+        <h4 style="margin: 0 0 8px 0; font-size: 16px; color: #0366d6;">3. Absolute Deadpan Acting</h4>
+        <p id="card3-text" style="margin: 0; font-size: 13px; color: #586069; line-height: 1.4;">[Click to reveal mechanism]</p>
+      </div>
+    </div>
+  </div>
